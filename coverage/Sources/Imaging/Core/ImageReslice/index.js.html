@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.02% </span>
+                <span class="strong">72.6% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>414/567</span>
+                <span class='fraction'>408/562</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.34% </span>
+                <span class="strong">73.91% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>397/534</span>
+                <span class='fraction'>391/529</span>
             </div>
         
             
@@ -1199,11 +1199,7 @@
 <a name='L1140'></a><a href='#L1140'>1140</a>
 <a name='L1141'></a><a href='#L1141'>1141</a>
 <a name='L1142'></a><a href='#L1142'>1142</a>
-<a name='L1143'></a><a href='#L1143'>1143</a>
-<a name='L1144'></a><a href='#L1144'>1144</a>
-<a name='L1145'></a><a href='#L1145'>1145</a>
-<a name='L1146'></a><a href='#L1146'>1146</a>
-<a name='L1147'></a><a href='#L1147'>1147</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L1143'></a><a href='#L1143'>1143</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1305,7 +1301,6 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">37x</span>
@@ -1343,7 +1338,8 @@
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
@@ -1914,7 +1910,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">19x</span>
@@ -1922,9 +1917,6 @@
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
@@ -2023,10 +2015,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">152x</span>
 <span class="cline-any cline-yes">456x</span>
-<span class="cline-any cline-yes">143x</span>
+<span class="cline-any cline-yes">138x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">456x</span>
-<span class="cline-any cline-yes">145x</span>
+<span class="cline-any cline-yes">147x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2450,8 +2442,7 @@ function vtkImageReslice(publicAPI, model) {
 &nbsp;
   publicAPI.setResliceAxes = (resliceAxes) =&gt; {
     if (!model.resliceAxes) {
-      model.resliceAxes = new Float64Array(16);
-      mat4.identity(model.resliceAxes);
+      model.resliceAxes = mat4.identity(new Float64Array(16));
     }
 &nbsp;
     if (!mat4.exactEquals(model.resliceAxes, resliceAxes)) {
@@ -2486,10 +2477,11 @@ function vtkImageReslice(publicAPI, model) {
     const outWholeExt = [0, 0, 0, 0, 0, 0];
     const outDims = [0, 0, 0];
 &nbsp;
-    let matrix = new Float64Array(16);
-    mat4.identity(matrix);
+    let matrix = null;
     <span class="missing-if-branch" title="else path not taken" >E</span>if (model.resliceAxes) {
       matrix = model.resliceAxes;
+    } else {
+<span class="cstat-no" title="statement not covered" >      matrix = mat4.identity(new Float64Array(16));</span>
     }
     const imatrix = new Float64Array(16);
     mat4.invert(imatrix, matrix);
@@ -3059,8 +3051,7 @@ function vtkImageReslice(publicAPI, model) {
   publicAPI.getIndexMatrix = (input, output) =&gt; {
     // first verify that we have to update the matrix
     if (indexMatrix === null) {
-      indexMatrix = new Float64Array(16);
-      mat4.identity(indexMatrix);
+      indexMatrix = mat4.identity(new Float64Array(16));
     }
 &nbsp;
     const inOrigin = input.getOrigin();
@@ -3068,12 +3059,9 @@ function vtkImageReslice(publicAPI, model) {
     const outOrigin = output.getOrigin();
     const outSpacing = output.getSpacing();
 &nbsp;
-    const transform = new Float64Array(16);
-    mat4.identity(transform);
-    const inMatrix = new Float64Array(16);
-    mat4.identity(inMatrix);
-    const outMatrix = new Float64Array(16);
-    mat4.identity(outMatrix);
+    const transform = mat4.identity(new Float64Array(16));
+    const inMatrix = mat4.identity(new Float64Array(16));
+    const outMatrix = mat4.identity(new Float64Array(16));
 &nbsp;
     <span class="missing-if-branch" title="if path not taken" >I</span>if (optimizedTransform) {
 <span class="cstat-no" title="statement not covered" >      optimizedTransform = null;</span>
@@ -3502,7 +3490,7 @@ export default { newInstance, extend };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Mar 24 2021 08:22:54 GMT+0000 (Coordinated Universal Time)
+                at Wed Mar 24 2021 17:12:44 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
