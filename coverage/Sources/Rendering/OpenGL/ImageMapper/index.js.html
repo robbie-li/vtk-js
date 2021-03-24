@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.78% </span>
+                <span class="strong">71.74% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>323/450</span>
+                <span class='fraction'>325/453</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.07% </span>
+                <span class="strong">65.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>95/146</span>
+                <span class='fraction'>98/150</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.21% </span>
+                <span class="strong">73.17% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>317/433</span>
+                <span class='fraction'>319/436</span>
             </div>
         
             
@@ -1061,7 +1061,10 @@
 <a name='L1002'></a><a href='#L1002'>1002</a>
 <a name='L1003'></a><a href='#L1003'>1003</a>
 <a name='L1004'></a><a href='#L1004'>1004</a>
-<a name='L1005'></a><a href='#L1005'>1005</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L1005'></a><a href='#L1005'>1005</a>
+<a name='L1006'></a><a href='#L1006'>1006</a>
+<a name='L1007'></a><a href='#L1007'>1007</a>
+<a name='L1008'></a><a href='#L1008'>1008</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1690,6 +1693,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1853,9 +1862,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">25x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">25x</span>
@@ -2690,7 +2696,13 @@ function vtkOpenGLImageMapper(publicAPI, model) {
   publicAPI.buildBufferObjects = (ren, actor) =&gt; {
     const image = model.currentInput;
 &nbsp;
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (image === null) {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!image) {
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+&nbsp;
+    const imgScalars =
+      image.getPointData() &amp;&amp; image.getPointData().getScalars();
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!imgScalars) {
 <span class="cstat-no" title="statement not covered" >      return;</span>
     }
 &nbsp;
@@ -2710,7 +2722,7 @@ function vtkOpenGLImageMapper(publicAPI, model) {
       model.pwfTexture.setMagnificationFilter(Filter.LINEAR);
     }
 &nbsp;
-    const numComp = image.getPointData().getScalars().getNumberOfComponents();
+    const numComp = imgScalars.getNumberOfComponents();
     const iComps = actorProperty.getIndependentComponents();
     const numIComps = iComps ? <span class="branch-0 cbranch-no" title="branch not covered" >numComp </span>: 1;
     const textureHeight = iComps ? <span class="branch-0 cbranch-no" title="branch not covered" >2 * numIComps </span>: 1;
@@ -2856,10 +2868,7 @@ function vtkOpenGLImageMapper(publicAPI, model) {
     }
 &nbsp;
     // rebuild the VBO if the data has changed
-    const toString = `${nSlice}A${image.getMTime()}A${image
-      .getPointData()
-      .getScalars()
-      .getMTime()}B${publicAPI.getMTime()}C${model.renderable.getSlicingMode()}D${actor
+    const toString = `${nSlice}A${image.getMTime()}A${imgScalars.getMTime()}B${publicAPI.getMTime()}C${model.renderable.getSlicingMode()}D${actor
       .getProperty()
       .getMTime()}`;
     <span class="missing-if-branch" title="else path not taken" >E</span>if (model.VBOBuildString !== toString) {
@@ -2895,7 +2904,7 @@ function vtkOpenGLImageMapper(publicAPI, model) {
         tcoordArray[i * 2 + 1] = i &gt; 1 ? 1.0 : 0.0;
       }
 &nbsp;
-      const basicScalars = image.getPointData().getScalars().getData();
+      const basicScalars = imgScalars.getData();
       let scalars = null;
       // Get right scalars according to slicing mode
       <span class="missing-if-branch" title="if path not taken" >I</span>if (ijkMode === SlicingMode.I) {
@@ -2972,7 +2981,7 @@ function vtkOpenGLImageMapper(publicAPI, model) {
         dims[0],
         dims[1],
         numComp,
-        image.getPointData().getScalars().getDataType(),
+        imgScalars.getDataType(),
         scalars
       );
       model.openGLTexture.activate();
@@ -3076,7 +3085,7 @@ export default { newInstance, extend };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Mar 23 2021 17:53:02 GMT+0000 (Coordinated Universal Time)
+                at Wed Mar 24 2021 03:41:17 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
