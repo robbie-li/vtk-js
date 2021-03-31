@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.85% </span>
+                <span class="strong">77.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>232/298</span>
+                <span class='fraction'>232/300</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.37% </span>
+                <span class="strong">78.82% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>227/286</span>
+                <span class='fraction'>227/288</span>
             </div>
         
             
@@ -736,7 +736,9 @@
 <a name='L677'></a><a href='#L677'>677</a>
 <a name='L678'></a><a href='#L678'>678</a>
 <a name='L679'></a><a href='#L679'>679</a>
-<a name='L680'></a><a href='#L680'>680</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L680'></a><a href='#L680'>680</a>
+<a name='L681'></a><a href='#L681'>681</a>
+<a name='L682'></a><a href='#L682'>682</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -892,25 +894,27 @@
 <span class="cline-any cline-yes">161x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">161x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">161x</span>
 <span class="cline-any cline-yes">161x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">161x</span>
 <span class="cline-any cline-yes">161x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">161x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1569,7 +1573,8 @@ function vtkRenderer(publicAPI, model) {
 <span class="cstat-no" title="statement not covered" >    publicAPI.modified();</span>
   };
   publicAPI.removeAllActors = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >    model.actors.forEach(<span class="fstat-no" title="function not covered" >(a</span>ctor) =&gt; {</span>
+    const actors = <span class="cstat-no" title="statement not covered" >publicAPI.getActors();</span>
+<span class="cstat-no" title="statement not covered" >    actors.forEach(<span class="fstat-no" title="function not covered" >(a</span>ctor) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      publicAPI.removeViewProp(actor);</span>
     });
 <span class="cstat-no" title="statement not covered" >    model.actors = [];</span>
@@ -1590,7 +1595,8 @@ function vtkRenderer(publicAPI, model) {
 <span class="cstat-no" title="statement not covered" >    publicAPI.modified();</span>
   };
   publicAPI.removeAllVolumes = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >    model.volumes.forEach(<span class="fstat-no" title="function not covered" >(v</span>olume) =&gt; {</span>
+    const volumes = <span class="cstat-no" title="statement not covered" >publicAPI.getVolumes();</span>
+<span class="cstat-no" title="statement not covered" >    volumes.forEach(<span class="fstat-no" title="function not covered" >(v</span>olume) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      publicAPI.removeViewProp(volume);</span>
     });
 <span class="cstat-no" title="statement not covered" >    model.volumes = [];</span>
@@ -2101,7 +2107,7 @@ export default { newInstance, extend };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Mar 31 2021 15:09:45 GMT+0000 (Coordinated Universal Time)
+                at Wed Mar 31 2021 16:07:41 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
